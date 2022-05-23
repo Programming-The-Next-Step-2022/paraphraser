@@ -1,0 +1,11 @@
+Package: paraphraser
+Type: Package
+Title: Sentence Paraphraser & Translator
+Version: 0.1
+Author: Margarida Araújo Jorge Moreira da Silva
+Maintainer: The package maintainer <margaridamoreirasilva@gmail.com>
+Description: This package creates a shiny app which takes a sentence as input from the user. 
+The user can then choose to paraphrase and/ or translate this sentence in a few languages.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
