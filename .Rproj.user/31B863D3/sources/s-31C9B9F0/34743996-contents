@@ -1,0 +1,38 @@
+
+# Some useful keyboard shortcuts for package authoring:
+#
+#   Install Package:           'Cmd + Shift + B'
+#   Check Package:             'Cmd + Shift + E'
+#   Test Package:              'Cmd + Shift + T'
+
+#' Translate Sentences
+#'
+#' @param text String to be translated.
+#'
+#' @param target_lang Language code of language user wishes to translate sentence to.
+#'
+#' @return The translated version of \code{text} in target language \code{target_lang}
+#'
+#' @example (...)
+#'
+#' @export
+
+### Translate Function ###
+
+translate <- function(text, target_lang) {
+  print(text)
+  print(target_lang)
+  # Get API
+  #url <- "https://api-free.deepl.com/v2/translate?auth_key=bff36225-b49d-4979-124c-0b52ebbee98d:fx"
+  #raw_result <- httr::GET(url)
+
+  # Convert it to usable format
+  #content <- httr::content(raw_result, as = "text")
+  #content_json <- jsonlite::fromJSON(content)
+
+}
+usethis::use_description(check_name=FALSE)
+
+### Create Database Function ###
+
+
