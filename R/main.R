@@ -20,7 +20,7 @@
 #' "RO" (Romanian), "RU" (Russian), "SK" (Slovak), "SL" (Slovenian), "SV" (Swedish), 
 #' "TR" (Turkish), and "ZH" (Chinese).
 #' 
-#' @param source_language Optional parameter to set the language of the \code{input_text}. 
+#' @param source_language Optional argument to set the language of the \code{input_text}. 
 #' If not specified, function will attempt to automatically recognise language.
 #' Current target language options are: "BG”  (Bulgarian), "CS" (Czech), "DA" (Danish), 
 #' "DE" (German), "EL" (Greek), "EN" (all English varieties), "ES" (Spanish), 
@@ -28,25 +28,63 @@
 #' "IT" (Italian), "JA" (Japanese), "LT" (Lithuanian), "LV" (Latvian), "NL" (Dutch), 
 #' "PL" (Polish), "PT" (all Portuguese varieties), "RO" (Romanian), "RU" (Russian), 
 #' "SK" (Slovak), "SL" (Slovenian), "SV" (Swedish), "TR" (Turkish), and "ZH" (Chinese).
-#'
+#' 
+#' @param formality Optional argument to determine whether the translation should 
+#' be more formal or informal. The possible options are "default" (default), 
+#' "more" for a more formal language, and "less" for a more informal language. 
+#' This currently only works for the following languages: "DE" (German), "FR" (French), 
+#' "IT" (Italian), "ES" (Spanish), "NL" (Dutch), "PL" (Polish), "PT-PT", 
+#' "PT-BR" (Portuguese), and "RU" (Russian). 
+#' 
+#' @param split_sentences Optional argument to determine whether the translator 
+#' should first split the \code{input_text} into sentences. This is enabled by default.
+#' The possible options are: 0 for no splitting at all meaning the whole input is 
+#' treated as a single sentence, 1 (default) for splitting at punctuation and 
+#' new lines, and "nonewlines" for splitting only at punctuation and ignoring 
+#' new lines.
+#' 
+#' @param preserve_formatting Optional argument to determine whether the translator
+#' should respect the original formatting of the \code{input_text}. Possible 
+#' aspects affected by this formatting include punctuation and upper or lower 
+#' cases at the start and end of sentences. Possible options are 0 (default) for 
+#' no formatting, or 1 for formatting.
+#' 
+#' 
 #' @return \code{output_text}: the translated version of \code{input_text} in target language \code{target_language}. 
 #'
 #' @examples 
-#' translate("Hello world!", "FR")
+#' translate("Hello world!", "FR", "EN")
 #' 
-#' translate("The brown fox jumped over the black cat.", "PT-PT")
+#' translate("The brown fox jumped over the black cat.", "PT-PT", formality = "more")
+#' 
+#' translate("i forgot about it. no i have to go back", "RU", "EN", formality = "less", 
+#' split_sentences = 0, preserve_formatting = 1)
+
 
 
 ### Translate Function ###
 #' @export
-translate <- function(input_text, target_language, source_language=NULL) {
+translate <- function(input_text, target_language, source_language = NULL, 
+                      formality = "default", split_sentences = 1, preserve_formatting = 0) {
   
-  # Check that both arguments are strings 
-  if(!assertthat::is.string(input_text))
+  # Check that all arguments are of correct type 
+  if(!is.character(input_text))
     stop("Argument 'text' must be a string.")
   
-  if(!assertthat::is.string(target_language))
-    stop("Argument 'target_lang' must be a string.")
+  if(!is.character(target_language))
+    stop("Argument 'target_language' must be a string.")
+  
+  if(!is.character(source_language) && !is.null(source_language))
+    stop("Argument 'source_language' must be a string.")
+  
+  if(!is.character(formality))
+    stop("Argument 'formality' must be a string.")
+  
+  if(!is.numeric(split_sentences) && !is.character(split_sentences))
+    stop("Argument 'split_sentences' must be numeric or string.") 
+  
+  if(!is.numeric(preserve_formatting))
+    stop("Argument 'preserve_formatting' must be numeric.")
   
   
   # Check that argument 2 and 3 are from correct language codes list 
@@ -55,25 +93,42 @@ translate <- function(input_text, target_language, source_language=NULL) {
                          "PT-PT", "PT-BR", "RO", "RU", "SK", "SL", "SV", "TR", "ZH")
   
   if((target_language %in% lang_codes_output) == FALSE)
-    stop("Argument 'target_language' must be an available language code. Check help file for more information")
+    stop("Argument 'target_language' must be an available language code. Check help file for more information.")
   
   lang_codes_input <- c("BG", "CS", "DA", "DE", "EL", "EN", "ES", "ET", "FI", "FR", 
                         "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", "PT", "RO", 
                         "RU", "SK", "SL", "SV", "TR", "ZH")
   
-  if((source_language %in% lang_codes_input) == FALSE)
-    stop("Argument 'source_language' must be an available language code. Check help file for more information")
+  if(!is.null(source_language))
+    if((source_language %in% lang_codes_input) == FALSE)
+      stop("Argument 'source_language' must be an available language code. Check help file for more information.")
+  
+  
+  # Check that other arguments are valid
+  formal_arguments <- c("default", "less", "more")
+  if((formality %in% formal_arguments) == FALSE)
+    stop("Argument 'formality' must be a valid string. Check help file for more information.")
+  
+  split_arguments <- c(0, 1, "nonewlines")
+  if((split_sentences %in% split_arguments) == FALSE)
+    stop("Argument 'split_sentences' must be a valid number or string. Check help file for more information.")
+  
+  formatting_arguments <- c(0, 1)
+  if((preserve_formatting %in% formatting_arguments) == FALSE)
+    stop("Argument 'formatting_argument' must be a valid number. Check help file for more information.")
   
   
   # Get API 
   url <- "https://api-free.deepl.com/v2/translate?auth_key=bff36225-b49d-4979-124c-0b52ebbee98d:fx"
   
-  # Check for source language argument
-  if(!is.null(source_language))
-    raw_result <- httr::POST(url, query = list(text = input_text, target_lang = target_language, source_lang = source_language))
-  else
-    raw_result <- httr::POST(url, query=list(text=input_text, target_lang=target_language))
-  
+  # API request
+  raw_result <- httr::POST(url, query = list(text = input_text, 
+                                             target_lang = target_language, 
+                                             source_lang = source_language, 
+                                             formality = formality,
+                                             split_sentences = split_sentences,
+                                             preserve_formatting = preserve_formatting))
+
   # Get readable data
   data <- jsonlite::fromJSON(rawToChar(raw_result$content))
   
@@ -82,7 +137,7 @@ translate <- function(input_text, target_language, source_language=NULL) {
   source_language <- data$translations$detected_source_language
   
   # Output translation
-  output_text
+  output_text 
   
 }
 

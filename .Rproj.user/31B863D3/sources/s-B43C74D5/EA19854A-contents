@@ -63,12 +63,16 @@ ui <- fixedPage(
 server <- function(input, output) {
   # detect language to NULL source_language
   if (input$select == 1)
-    translation <- translate(input_text = input$input_text, target_language = input$select)
+    translation <- translate(input_text = input$input_text, 
+                             target_language = input$select)
   else
-    translation <- translate(input_text = input$input_text, target_language = input$select, source_language = input$select)
+    translation <- translate(input_text = input$input_text, 
+                             target_language = input$select, 
+                             source_language = input$select)
   
   output$output_text <- renderText({translation})
 }
 
 # Create shiny app
 shinyApp(ui = ui, server = server)
+
