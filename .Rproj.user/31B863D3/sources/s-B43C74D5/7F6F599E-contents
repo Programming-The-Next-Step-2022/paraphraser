@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{translate}
 \alias{translate}
-\title{Translater}
+\title{Translate}
 \usage{
 translate(
   input_text,
@@ -37,13 +37,13 @@ Current target language options are: "BG”  (Bulgarian), "CS" (Czech), "DA" (Da
 \item{formality}{Optional argument to determine whether the translation should
 be more formal or informal. The possible options are "default" (default),
 "more" for a more formal language, and "less" for a more informal language.
-This currently only works for the following languages: "DE" (German), "FR" (FRENCH),
+This currently only works for the following languages: "DE" (German), "FR" (French),
 "IT" (Italian), "ES" (Spanish), "NL" (Dutch), "PL" (Polish), "PT-PT",
 "PT-BR" (Portuguese), and "RU" (Russian).}
 
 \item{split_sentences}{Optional argument to determine whether the translator
 should first split the \code{input_text} into sentences. This is enabled by default.
-The possible options are: 0 for no splitting at all meaning the whole inout is
+The possible options are: 0 for no splitting at all meaning the whole input is
 treated as a single sentence, 1 (default) for splitting at punctuation and
 new lines, and "nonewlines" for splitting only at punctuation and ignoring
 new lines.}

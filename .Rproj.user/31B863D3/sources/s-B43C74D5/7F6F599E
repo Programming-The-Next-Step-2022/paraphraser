@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/translate_/man/translate.Rd",
     "project_path": "man/translate.Rd",
     "type": "r_doc",
-    "hash": "3957801902",
+    "hash": "2552702487",
     "contents": "",
     "dirty": false,
     "created": 1653471845269.0,
@@ -13,14 +13,14 @@
         "source_window_id": "",
         "Source": "Source",
         "cursorPosition": "51,28",
-        "scrollLine": "35"
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653473328,
+    "lastKnownWriteTime": 1653476549,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653473328157,
+    "last_content_update": 1653476549175,
     "read_only": true,
     "read_only_alternatives": [
         "R/main.R"

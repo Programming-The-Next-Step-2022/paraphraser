@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 ## Package
-(...) \
+This package was built in the context of research into eHealth interventions but can be used in all sorts of contexts that require straightforward but nuanced translations. \
 
 ```{r setup}
 library(project.margarida)
@@ -26,7 +26,7 @@ library(project.margarida)
 ## Translate Function
 
 Translate function translates text into a target language by using Deepl's API (<https://www.deepl.com/>) to provide high quality translations. \
-Deepl uses (...). \
+Deepl uses neural networks in their machine translation to capture more nuances in text input than other translators. \
 \
 **Arguments:** \
 * `input_text`: The string you wish to translate \
@@ -81,8 +81,8 @@ In contrast, in the second example, the sentences were merged into a single sent
 (...) \
 
 ### Screenshots
-This is a temporary image for test:
+This is a temporary image for testing:
 
-#![User Interface](/Users/margaridamoreirasilva/Desktop/trial_screenshot.png){width=70%}
+![User Interface](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/trial_screenshot.png){width=80%}
 
 

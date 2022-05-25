@@ -1,26 +1,27 @@
 {
-    "id": "BE3B08A2",
-    "path": "~/Documents/GitHub/translate_/tests/testthat/test-translate.R",
-    "project_path": "tests/testthat/test-translate.R",
+    "id": "A52B0AA8",
+    "path": "~/Documents/GitHub/translate_/R/app.R",
+    "project_path": "R/app.R",
     "type": "r_source",
-    "hash": "4011881846",
+    "hash": "3954845594",
     "contents": "",
     "dirty": false,
-    "created": 1653130479115.0,
+    "created": 1653476560464.0,
     "source_on_save": false,
     "relative_order": 5,
     "properties": {
+        "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "34,2",
-        "scrollLine": "13"
+        "cursorPosition": "4,78",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653476073,
+    "lastKnownWriteTime": 1653477561,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653476073941,
+    "last_content_update": 1653477561564,
     "read_only": false,
     "read_only_alternatives": []
 }
