@@ -1,9 +1,9 @@
 {
     "id": "C4E00FF5",
-    "path": "~/Documents/GitHub/project_margarida/R/main.R",
+    "path": "~/Documents/GitHub/translate_/R/main.R",
     "project_path": "R/main.R",
     "type": "r_source",
-    "hash": "2535589460",
+    "hash": "84970771",
     "contents": "",
     "dirty": false,
     "created": 1653127216500.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "33,45",
-        "scrollLine": "30"
+        "cursorPosition": "87,0",
+        "scrollLine": "65"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653134150,
+    "lastKnownWriteTime": 1653467140,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653134150169,
+    "last_content_update": 1653467140710,
     "read_only": false,
     "read_only_alternatives": []
 }
