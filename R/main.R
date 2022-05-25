@@ -52,8 +52,9 @@
 #' no formatting, or 1 for formatting.
 #' 
 #' 
-#' @return \code{output_text}: the translated version of \code{input_text} in 
-#' target language \code{target_language}. 
+#' @return \code{'input text'}, \code{'source_language'} (specified by user or 
+#' automatically detected), \code{'output text'} (translated version of input text, 
+#' and \code{'target language'}.
 #'
 #' @examples 
 #' translate("Hello world!", "FR", "EN")
@@ -159,7 +160,14 @@ translate <- function(input_text,
   output_text <- data$translations$text
   source_language <- data$translations$detected_source_language
   
-  # Output translation
-  output_text 
+  # Create class
+  output <- list('input text' = input_text, 
+                 'source language' = source_language, 
+                 'output text' = output_text,
+                 'target language' = target_language)
+  class(output) <- "translation"
+  
+  # Print output
+  print(output)
 }
 
