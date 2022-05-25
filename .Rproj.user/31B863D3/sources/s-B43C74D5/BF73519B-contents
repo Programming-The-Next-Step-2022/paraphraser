@@ -1,0 +1,14 @@
+# Get API 
+url <- "https://app.plaraphy.com/api/paraphrase?auth_key=984|fh0hp1jeCU8kU7q68Sce3n8UizdPxfxWh4I6gFy6"
+
+# API request
+raw_result <- httr::POST(url, headers={
+  'accept': 'application/json',
+  'content-type': 'application/x-www-form-urlencoded',
+  'authorization': 'Bearer 984|fh0hp1jeCU8kU7q68Sce3n8UizdPxfxWh4I6gFy6',
+  'cache-control': 'no-cache',
+}
+text = "the reason for it is that i don't like that.")
+
+# Get readable data
+data <- jsonlite::fromJSON(rawToChar(raw_result$content))

@@ -161,10 +161,10 @@ translate <- function(input_text,
   source_language <- data$translations$detected_source_language
   
   # Create class
-  output <- list('input text' = input_text, 
-                 'source language' = source_language, 
-                 'output text' = output_text,
-                 'target language' = target_language)
+  output <- list('input_text' = input_text, 
+                 'source_language' = source_language, 
+                 'output_text' = output_text,
+                 'target_language' = target_language)
   class(output) <- "translation"
   
   # Print output

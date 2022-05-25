@@ -1,14 +1,14 @@
 {
-    "id": "BE3B08A2",
+    "id": "D278983B",
     "path": "~/Documents/GitHub/translate_/tests/testthat/test-translate.R",
     "project_path": "tests/testthat/test-translate.R",
     "type": "r_source",
     "hash": "4011881846",
     "contents": "",
     "dirty": false,
-    "created": 1653130479115.0,
+    "created": 1653480073576.0,
     "source_on_save": false,
-    "relative_order": 5,
+    "relative_order": 3,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
@@ -20,7 +20,7 @@
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653476073941,
+    "last_content_update": 1653476073,
     "read_only": false,
     "read_only_alternatives": []
 }
