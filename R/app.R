@@ -1,0 +1,74 @@
+library("shiny")
+library("shinythemes")
+library("shinydashboard")
+
+# Define UI
+ui <- fixedPage(
+  
+  # Visuals
+  theme= shinytheme("sandstone"),
+  tags$head(tags$style(HTML('* {font-family: "Beirut"};'))),
+  # add some sort of button to switch languages or something? like real translator
+  
+  # Title
+  titlePanel("Translator"),
+  
+  # Description of translator and package on top
+  p("This translator was built with an R package that uses the API from Deepl. 
+    (https://www.deepl.com). You can choose from 28 different languages and input
+    your text in the left box."),
+  
+  # Main body
+  fixedRow(
+    # Column 1: drop down menu with available languages 
+    # get this from different function in package? - where codes correspond to language
+    # have "detect language" option that sets source_language to NULL
+    # input_text from text box will be used as function argument in server
+    column(6,
+           "side1",
+           selectInput("select", label = h3("Select Source Language"), 
+                       choices = list("Detect Language" = 1, "Russian" = "RU", "Latvian" = "LV"), 
+                       selected = 1),
+           #textInput("input_text", label ="", value = "Enter text..."),
+           withTags(
+             div(
+               h5(b("")), 
+               textarea(id = "input_text", 
+                        class = "form-control shiny-bound-input",
+                        style = "width: 300px; height: 400px")
+             )
+           ),
+    ),
+    
+    # Column 2: drop down menu to determine target_language to be used in function
+    # again from different function from package? user does not have to input code themselves
+    # no "detect language" option
+    # box will display output_text - not interactive, not text box for user to write in
+    column(6, 
+           "side2",
+           selectInput("select", label = h3("Select Target Language"), 
+                       choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
+                       selected = 1),
+           #textInput("text", label = h3("Text input"), value = "Enter text..."),
+           box(
+             textOutput("output_text"),width=5, height= 5
+           )
+           #div(style = "border-style: solid; border-color: black;")
+           
+    )
+  )
+)
+
+# Define server
+server <- function(input, output) {
+  # detect language to NULL source_language
+  if (input$select == 1)
+    translation <- translate(input_text = input$input_text, target_language = input$select)
+  else
+    translation <- translate(input_text = input$input_text, target_language = input$select, source_language = input$select)
+  
+  output$output_text <- renderText({translation})
+}
+
+# Create shiny app
+shinyApp(ui = ui, server = server)
