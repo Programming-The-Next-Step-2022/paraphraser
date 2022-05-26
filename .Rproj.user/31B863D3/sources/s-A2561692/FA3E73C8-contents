@@ -10,7 +10,7 @@ translate(
   source_language = NULL,
   formality = "default",
   split_sentences = 1,
-  preserve_formatting = 0
+  preserve_formatting = 1
 )
 }
 \arguments{
@@ -53,8 +53,8 @@ new lines.}
 \item{preserve_formatting}{Optional argument to determine whether the translator
 should respect the original formatting of the \code{input_text}. Possible
 aspects affected by this formatting include punctuation and upper or lower
-cases at the start and end of sentences. Possible options are 0 (default) for
-no formatting, or 1 for formatting.}
+cases at the start and end of sentences. Possible options are 1 (default) for
+preserving formatting of \code{input_text}, or 0 for changing the formatting.}
 }
 \value{
 \code{'input text'}, \code{'source_language'} (specified by user or

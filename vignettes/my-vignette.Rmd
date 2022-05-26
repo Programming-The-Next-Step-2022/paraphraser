@@ -71,7 +71,7 @@ translation_1$output_text
 
 **Using optional arguments:** \
 
-*Note: split_sentences and preserve_formatting arguments stopped working. Needs to be changed for text below to make sense.* \
+*Note: split_sentences stopped working. Needs to be changed for text below to make sense.* \
 
 The two examples below show how the translation can look quite different depending on what the additional optional arguments are set as. \ 
 

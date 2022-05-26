@@ -102,7 +102,7 @@ translate <- function(input_text,
   }
   
   
-  # Check that argument 2 and 3 are from correct language codes list 
+  # Check that argument 2, 3 and 4 are from correct language codes list 
   lang_codes_output <- c("BG", "CS", "DA", "DE", "EL", "EN-GB", "EN-US", "ES", "ET", 
                          "FI", "FR", "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", 
                          "PT-PT", "PT-BR", "RO", "RU", "SK", "SL", "SV", "TR", "ZH")
@@ -123,6 +123,14 @@ translate <- function(input_text,
     }
   }
   
+  lang_codes_formal <- c("DE", "FR", "IT", "ES", "NL", "PL", "PT-PT", "PT-BR", "RU")
+  if(!formality == "default") {
+    if((target_language %in% lang_codes_formal) == FALSE) {
+      stop("Argument 'formality' must be an available language code. 
+         Check help file for more information")
+    }
+  }
+  
   # Check that other arguments are valid
   formal_arguments <- c("default", "less", "more")
   if((formality %in% formal_arguments) == FALSE) {
@@ -138,7 +146,7 @@ translate <- function(input_text,
   
   formatting_arguments <- c(0, 1)
   if((preserve_formatting %in% formatting_arguments) == FALSE) {
-    stop("Argument 'formatting_argument' must be a valid number. 
+    stop("Argument 'preserve_formatting' must be a valid number. 
          Check help file for more information.")
   }
   

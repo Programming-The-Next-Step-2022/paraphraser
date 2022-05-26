@@ -28,6 +28,9 @@ test_that("translate accepts only available language codes", {
   
   # Code accepted only for second argument as third argument
   expect_error(translate("hello", "EN", "PT-PT"))
+  
+  # Code from second/third argument as formality argument
+  expect_error(translate("hello", "LV", formality = "more"))
 })
 
 test_that("translate recognises target_language correctly", {
@@ -55,10 +58,11 @@ test_that("translate formality level is properly set", {
   expect_false(isTRUE(all.equal(translation_7$output_text, translation_8$output_text)))
 })
 
-# This test is still failing !
 test_that("translate split_sentences correctly splits or not sentences", {
-  translation_9 <- translate("Hello. I saw him leave through there!", "FR", split_sentences = "1")
-  translation_10 <- translate("Hello. I saw him leave through there!", "FR", split_sentences = "0")
+  translation_9 <- translate("Hello. 
+                             I saw him leave through there", "FR", split_sentences = "1")
+  translation_10 <- translate("Hello. 
+                              I saw him leave through there", "FR", split_sentences = "0")
   expect_false(isTRUE(all.equal(translation_9$output_text, translation_10$output_text)))
 })
 
