@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/translate_/man/translate.Rd",
     "project_path": "man/translate.Rd",
     "type": "r_doc",
-    "hash": "1700452015",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1653478985591.0,
@@ -21,8 +21,6 @@
     "collab_server": "",
     "source_window": "",
     "last_content_update": 1653478987260,
-    "read_only": true,
-    "read_only_alternatives": [
-        "R/main.R"
-    ]
+    "read_only": false,
+    "read_only_alternatives": []
 }

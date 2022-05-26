@@ -34,28 +34,29 @@ Deepl uses neural networks in their machine translation to capture more nuances 
 * `source_language`: Optional argument to set the language of the `input_text`. If this is not chosen, then the translator will attempt to detect the language automatically. Once again, an accepted language code must be used. Note that the language codes accepted for `target_language` are not exactly the same as the ones accepted for `source_language`. There are only minor differences, for example, the `target_language` codes include both Portugal Portuguese ("PT-PT") and Brazilian Portuguese ("PT-BR") while the `source_language` codes do not make this distinction ("PT"). The help file lists all the options. \
 * `formality`: Optional argument in case you want to receive a more formal or informal translation than default. This argument is only accepted in a smaller number of languages (German, French, Italian, Spanish, Dutch, Polish, Portuguese, and Russian). Options are "default", "more", and "less". \
 * `split_sentences`: Optional argument that determines whether the translator should split the `input_text` into sentences or treat the whole input as a single sentence. Default is set to `1`, meaning splitting occurs after punctuation and new lines. Other options are `0` meaning no splitting at all, and `"nonewlines"` meaning splitting only happens after punctuation. \
-* `preserve_formatting`: Optional argument to determine whether the original format of the `input_text` should be kept, which is the default setting, or whether the translator should format the text. For example, by including punctuation and upper or lower cases when needed. Options are `0` for default and `1` for formatting. \
+* `preserve_formatting`: Optional argument to determine whether the original format of the `input_text` should be kept, which is the default setting, or whether the translator should format the text. For example, by including punctuation and upper or lower cases when needed. Options are `1` for default and `0` for changing formatting. \
 
 \
 **Output:**\
 Just calling the function will print a list with 4 outputs. These are the main arguments you have defined and the outcome of the translate function: \
 * `input_text` \
 * `source_language` \
-* `output_text` \
+* `output_text`: this is the translated version of the `input_text` \
 * `target_language` \
 
 ### Examples
 
 **Using only the essential arguments:** \
 
+This example shows how easy it is to use this function especially when you do not need to specify any additional arguments. The translator detects the `source_language` automatically. It also gives you back the input text and source language it detected (or you specified) and the target language you have picked along with the output text (the translation). \
+
 ```{r translate}
 translate(input_text = "Hello world!", 
           target_language = "RU")
 
 ```
-This example shows how easy it is to use this function especially when you do not need to specify any additional arguments. The translator detects the `source_language` automatically. It also gives you back the input text and source language it detected (or you specified) and the target language you have picked along with the output text (the translation). \
-
-
+\
+Here you can see another example that also shows how you can access only the output you need, rather than getting a list of of all that the function returns. \
 
 ```{r, results = 'hide'}
 translation_1 <- translate(input_text = "The red fox jumped over the black cat",
@@ -63,48 +64,51 @@ translation_1 <- translate(input_text = "The red fox jumped over the black cat",
 
 ```
 ```{r}
-translation_1$"output_text"
+translation_1$output_text
 ```
-Here you can see another example that also shows how you can access only the output you need, rather than getting a list of of all that the function returns. \
+
 \
 
 **Using optional arguments:** \
 
+*Note: split_sentences and preserve_formatting arguments stopped working. Needs to be changed for text below to make sense.* \
+
+The two examples below show how the translation can look quite different depending on what the additional optional arguments are set as. \ 
+
+
+Note how in the first one, the sentences were split (`split_sentences = 1`), the formatting was not changed as the sentences were not formatted with upper case (`preserve_formatting = 1`), and a more informal verb, "pulou", is used for "jumped" (`formality = "less"`). \
+
+
 ```{r, results = "hide"}
-translation_2 <- translate(input_text = "The cat jumped over the fox. then he fell", 
+translation_2 <- translate(input_text = "the cat jumped over the fox. then he fell", 
           target_language = "PT-BR",
           source_language = "EN",
           formality = "less",
           split_sentences = 1,
-          preserve_formatting = 0)
+          preserve_formatting = 1)
 ```
 
 ```{r}
-translation_2$'output_text'
+translation_2$output_text
 ```
 
+
+In contrast, in the second example, the sentences were merged into a single sentence (`split_sentences = 0`), but a comma was added in between them to format it correctly and the first letter is now uppercase (`preserve_formatting = 1`), and a more formal verb, "saltou", was used for "jumped" (`formality = "more"`). \
+
 ```{r, results = "hide"}
-translation_3 <- translate(input_text = "The cat jumped over the fox. then he fell", 
+translation_3 <- translate(input_text = "the cat jumped over the fox. then he fell", 
           target_language = "PT-BR",
           source_language = "EN",
           formality = "more",
-          split_sentences = 0,
-          preserve_formatting = 1)
+          split_sentences = "0",
+          preserve_formatting = 0)
 
 ```
 
 ```{r}
-translation_3$'output_text'
+translation_3$output_text
 ```
-
-The two examples above show how the translation can look quite different depending on what the additional optional arguments are set as. \ 
-
-
-Note how in the first one, the sentences were split (`split_sentences = 1`), the formatting was not changed as the second sentence was not formatted with upper case (`preserve_formatting = 0`), and a more informal verb, "pulou", is used for "jumped" (`formality = "less"`). \
-
-
-In contrast, in the second example, the sentences were merged into a single sentence (`split_sentences = 0`), but a comma was added in between them to format it correctly (`preserve_formatting = 1`), and a more formal verb, "saltou", was used for "jumped" (`formality = "more"`). \
-
+\
 
 
 ## User Interface: R Shiny App
@@ -114,19 +118,19 @@ The user interface was created with Shiny from R Studio (<https://shiny.rstudio.
 ### Screenshots
 
 First, the user opens the shiny app to reveal this user interface:\
-(This is a temporary image for testing)
+*(This is a temporary image for testing)*
 ![User Interface](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/trial_screenshot.png){width=80%} \
 \
 On the left side, the user can click on the drop down button to choose the source language or leave it at the "Detect Language" option. This option means that the `source_language` argument is not defined and the translator will try to detect the language automatically. \
 Below this, there is a text box where the user can write the text they wish to translate. \
-(image of drop down button)\
+*(image of drop down button)*\
 \
 In the middle section, you see three other drop down buttons. Here you can define the optional arguments of the function. They are initially set to their default values but you can change them which will update your translation \
-(image of middle drop down buttons)\
+*(image of middle drop down buttons)*\
 \
 Finally, the right section contains another drop down button very similar to the one on the left. Here you can also select from the language options to choose the `target_language`. This choice is necessary so there is no "Detect Language" option. \
 Below it there is a box where your translated output will appear. \
-(image of left drop down button)\
+*(image of left drop down button)*\
 \
-(image of outcome with translation)
+*(image of outcome with translation)*
 

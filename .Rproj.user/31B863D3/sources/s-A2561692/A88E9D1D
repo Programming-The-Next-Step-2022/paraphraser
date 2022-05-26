@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/translate_/vignettes/my-vignette.Rmd",
     "project_path": "vignettes/my-vignette.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2676732890",
     "contents": "",
     "dirty": false,
     "created": 1653480081804.0,
@@ -12,16 +12,16 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "66,3",
-        "scrollLine": "65",
-        "last_setup_crc32": ""
+        "cursorPosition": "73,123",
+        "scrollLine": "62",
+        "last_setup_crc32": "A256169236654ca0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653489759,
+    "lastKnownWriteTime": 1653560308,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653489759748,
+    "last_content_update": 1653560308938,
     "read_only": false,
     "read_only_alternatives": []
 }
