@@ -1,7 +1,17 @@
 library("shiny")
 library("shinythemes")
-library("shinydashboard")
+
+# would this work if its not loaded in my computer? - maybe needs to be changed
 source("~/Documents/GitHub/translate_/R/main.R")
+
+### TO DO ### ------------------------
+
+# make output text box always visible and fixed size to match input text box
+# improve general appearance
+# make split_sentences and formatting buttons work
+# make sure formatting button only appears if available target language is selected
+# show detected source language somewhere - maybe update source button? 
+
 
 # Define UI ------------------------------------------------------------------
 ui <- fluidPage(
@@ -39,7 +49,8 @@ ui <- fluidPage(
                                               "Portuguese" = "PT", "Romanian" = "RO", 
                                               "Russian" = "RU", "Slovak" = "SK", 
                                               "Slovenian" = "SL", "Swedish" = "SV", 
-                                              "Turkish" = "TR", "Chinese" = "ZH")),
+                                              "Turkish" = "TR", "Chinese" = "ZH"),
+                                  selected = "EN"),
                       textAreaInput("input_text", label="", value ="", height = "500px")
                     )
                     ),
@@ -97,6 +108,7 @@ server <- function(input, output) {
   output$text_output <- renderText({
     translation <- translate(input_text = input$input_text, 
                              target_language = input$target,
+                             source_language = input$source,
                              formality = input$formality
                              #preserve_formatting = input$formatting
                              )

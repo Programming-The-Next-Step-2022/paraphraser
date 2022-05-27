@@ -118,7 +118,6 @@ The user interface was created with Shiny from R Studio (<https://shiny.rstudio.
 ### Screenshots
 
 First, the user opens the shiny app to reveal this user interface:\
-*(This is a temporary image for testing)*
 ![User Interface](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/user_interface.png){width=80%} \
 \
 On the left side, the user can click on the drop down button to choose the source language or leave it at the "Detect Language" option. This option means that the `source_language` argument is not defined and the translator will try to detect the language automatically. \
