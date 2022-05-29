@@ -6,9 +6,9 @@ library("project.margarida")
 test_that("translate accepts right input for each argument", {
   expect_error(translate(34, 3))
   expect_error(translate(TRUE, FALSE))
-  expect_error(translate("hello", "PT-PT", 3, "less", 1, 0))
-  expect_error(translate("hello", "PT-PT", "EN", 3, 1, 0))
-  expect_error(translate("hello", "PT-PT", "EN", "more", 1, "hello"))
+  expect_error(translate("hello", "PT-PT", 3, "less", 0))
+  expect_error(translate("hello", "PT-PT", "EN", 3, 0))
+  expect_error(translate("hello", "PT-PT", "EN", "more", "hello"))
 })
 
 test_that("translate returns a different string from input text", {
@@ -30,7 +30,7 @@ test_that("translate accepts only available language codes", {
   expect_error(translate("hello", "EN", "PT-PT"))
   
   # Code from second/third argument as formality argument
-  expect_error(translate("hello", "LV", formality = "more"))
+  expect_error(translate("hello", "LV", formality = "EN"))
 })
 
 test_that("translate recognises target_language correctly", {
@@ -58,13 +58,6 @@ test_that("translate formality level is properly set", {
   expect_false(isTRUE(all.equal(translation_7$output_text, translation_8$output_text)))
 })
 
-test_that("translate split_sentences correctly splits or not sentences", {
-  translation_9 <- translate("Hello. 
-                             I saw him leave through there", "FR", split_sentences = "1")
-  translation_10 <- translate("Hello. 
-                              I saw him leave through there", "FR", split_sentences = "0")
-  expect_false(isTRUE(all.equal(translation_9$output_text, translation_10$output_text)))
-})
 
 test_that("translate preserve_formatting correctly changes formatting", {
   translation_11 <- translate("hi", "FR", preserve_formatting = 1)

@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/translate_/R/main.R",
     "project_path": "R/main.R",
     "type": "r_source",
-    "hash": "3373446109",
+    "hash": "3679005108",
     "contents": "",
     "dirty": false,
     "created": 1653127216500.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "183,0",
-        "scrollLine": "64"
+        "cursorPosition": "156,67",
+        "scrollLine": "144"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653823136,
+    "lastKnownWriteTime": 1653829560,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653823136567,
+    "last_content_update": 1653829560668,
     "read_only": false,
     "read_only_alternatives": []
 }

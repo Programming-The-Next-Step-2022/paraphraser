@@ -3,7 +3,7 @@ title: "Translator"
 author: Margarida Araújo Jorge Moreira da Silva
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{my-vignette}
+  %\VignetteIndexEntry{Translator}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -33,7 +33,6 @@ Deepl uses neural networks in their machine translation to capture more nuances 
 * `target_language`: The language code of language you wish to translate your string(s) to. Note that it must be an accepted language code in a string format and in upper case to be accepted. For example, "BG" for Bulgarian. The help file lists all accepted language codes. \
 * `source_language`: Optional argument to set the language of the `input_text`. If this is not chosen, then the translator will attempt to detect the language automatically. Once again, an accepted language code must be used. Note that the language codes accepted for `target_language` are not exactly the same as the ones accepted for `source_language`. There are only minor differences, for example, the `target_language` codes include both Portugal Portuguese ("PT-PT") and Brazilian Portuguese ("PT-BR") while the `source_language` codes do not make this distinction ("PT"). The help file lists all the options. \
 * `formality`: Optional argument in case you want to receive a more formal or informal translation than default. This argument is only accepted in a smaller number of languages (German, French, Italian, Spanish, Dutch, Polish, Portuguese, and Russian). Options are "default", "more", and "less". \
-* `split_sentences`: Optional argument that determines whether the translator should split the `input_text` into sentences or treat the whole input as a single sentence. Default is set to `1`, meaning splitting occurs after punctuation and new lines. Other options are `0` meaning no splitting at all, and `"nonewlines"` meaning splitting only happens after punctuation. \
 * `preserve_formatting`: Optional argument to determine whether the original format of the `input_text` should be kept, which is the default setting, or whether the translator should format the text. For example, by including punctuation and upper or lower cases when needed. Options are `1` for default and `0` for changing formatting. \
 
 \
@@ -74,15 +73,14 @@ translation_1$output_text
 The two examples below show how the translation can look quite different depending on what the additional optional arguments are set as. \ 
 
 
-Note how in the first one, the sentences were split (`split_sentences = 1`), the formatting was not changed as the sentences were not formatted with upper case (`preserve_formatting = 1`), and a more informal verb, "pulou", is used for "jumped" (`formality = "less"`). \
+Note how in the first one, the formatting was not changed as the sentences were not formatted with upper case (`preserve_formatting = 1`), and a more informal verb, "pulou", is used for "jumped" (`formality = "less"`). \
 
 
 ```{r, results = "hide"}
-translation_2 <- translate(input_text = "the cat jumped over the fox. then he fell", 
+translation_2 <- translate(input_text = "the cat jumped over the fox. then he fell.", 
           target_language = "PT-BR",
           source_language = "EN",
           formality = "less",
-          split_sentences = 1,
           preserve_formatting = 1)
 ```
 
@@ -91,14 +89,13 @@ translation_2$output_text
 ```
 
 
-In contrast, in the second example, the sentences were merged into a single sentence (`split_sentences = 0`), but a comma was added in between them to format it correctly and the first letter is now uppercase (`preserve_formatting = 1`), and a more formal verb, "saltou", was used for "jumped" (`formality = "more"`). \
+In contrast, in the second example, the first letter is now uppercase (`preserve_formatting = 1`), and a more formal verb, "saltou", was used for "jumped" (`formality = "more"`). \
 
 ```{r, results = "hide"}
-translation_3 <- translate(input_text = "the cat jumped over the fox. then he fell", 
+translation_3 <- translate(input_text = "the cat jumped over the fox. then he fell.", 
           target_language = "PT-BR",
           source_language = "EN",
           formality = "more",
-          split_sentences = "0",
           preserve_formatting = 0)
 ```
 
@@ -122,8 +119,8 @@ Below this, there is a text box where the user can write the text they wish to t
 ![Selecting Source Language](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/source_language.png){width=40%} \
 
 \
-In the middle section, you see three other drop down buttons. Here you can define the optional arguments of the function. They are initially set to their default values but you can change them which will update your translation. \
-Note that the third button to choose the level of formality is not available for every language. This button will only appear if you select a target language that is possible to make more or less formal. For now, these are: Portuguese, Brazilian Portuguese, Spanish, German, French, Russian, Polish, Dutch, and Italian. \
+In the middle section, you see two other questions with different options. Here you can define the optional arguments of the function. They are initially set to their default values but you can change them which will update your translation. \
+Note that the second button, to choose the level of formality, is not available for every language. This button will only appear if you select a target language that is possible to make more or less formal. For now, these are: Portuguese, Brazilian Portuguese, Spanish, German, French, Russian, Polish, Dutch, and Italian. \
 ![Optional Buttons](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/middle_buttons.png){width=30%} \
 \
 Finally, the right section contains another drop down button very similar to the one on the left. Here you can also select from the language options to choose the `target_language`. This choice is necessary so there is no "Detect Language" option. \
@@ -139,10 +136,11 @@ An example of a translation looks like: \
 *draft version:*
 
 * There was an issue with the default argument for the source_language argument in shiny. The default value in the function was originally set to be NULL unless the participant specified the source_language they wanted. I tried fixing it in different ways within shiny, since it would just give an error if "Detect language" was selected from the start. I ended up just changing the default value within the function to be a string called "NULL" and then, within the function, this is changed to a normal NULL value if nothing else is specified. This fixed the problem within shiny and the function still works so I left it like that. \
+* similar problem with formatting - when i kept output as numeric, rather than strings, it would give me errors saying it wasn't numeric. I tested the strings "1" and "0" rather than the numebrs 1 and 0, and commented out the error messages to non-numeric values in the function. This immediately fixed the problem again
 
 * split_sentences didn't seem to do anything - was hard to tell exactly what that should look like since online translator doesn't seem to give that option to users anyways. made me think of whether it even is relevant or not. it does seem to work with new lines though, which i guess is the most useful? \ 
 
-* getting conditional statement to take more than one language input - had to make separate button that is the same for each language that can be made more or less formal\
+* getting conditional statement to take more than one language input - had to make separate button that is the same for each language that can be made more or less formal. I didn't really like how this looked but I tried several ways of making some sort of OR statement but the function would give an error every time\
 
-
+* remove split_sentences argument - did nothing and not useful when it worked
 

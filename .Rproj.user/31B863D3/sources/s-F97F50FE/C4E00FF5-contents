@@ -4,6 +4,9 @@
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
 
+
+# Creating help file --------------------------------------------------------
+
 #' Translate
 #'
 #' @description Translates text into a target language. Uses Deepl API
@@ -38,13 +41,6 @@
 #' (French), "IT" (Italian), "ES" (Spanish), "NL" (Dutch), "PL" (Polish), "PT-PT", 
 #' "PT-BR" (Portuguese), and "RU" (Russian). 
 #' 
-#' @param split_sentences Optional argument to determine whether the translator 
-#' should first split the \code{input_text} into sentences. This is enabled by 
-#' default. The possible options are: 0 for no splitting at all meaning the whole 
-#' input is treated as a single sentence, 1 (default) for splitting at punctuation 
-#' and new lines, and "nonewlines" for splitting only at punctuation and ignoring 
-#' new lines.
-#' 
 #' @param preserve_formatting Optional argument to determine whether the translator
 #' should respect the original formatting of the \code{input_text}. Possible 
 #' aspects affected by this formatting include punctuation and upper or lower 
@@ -67,13 +63,13 @@
 
 
 
+
 # Translate Function ---------------------------------------------------------
 #' @export
 translate <- function(input_text, 
                       target_language, 
                       source_language = "NULL", 
-                      formality = "default", 
-                      split_sentences = 1, 
+                      formality = "default",  
                       preserve_formatting = 1) {
   
   # Check that all arguments are of correct type 
@@ -93,13 +89,10 @@ translate <- function(input_text,
     stop("Argument 'formality' must be a string.")
   }
   
-  if(!is.numeric(split_sentences) && !is.character(split_sentences)) {
-    stop("Argument 'split_sentences' must be numeric or string.") 
-  }
-  
-  if(!is.numeric(preserve_formatting)) {
-    stop("Argument 'preserve_formatting' must be numeric.")
-  }
+  # had to change it to string inputs to work in shiny
+  #if(!is.numeric(preserve_formatting) && !is.character(preserve_formatting) ) {
+   # stop("Argument 'preserve_formatting' must be valid number or string.")
+  #}
   
   
   # Check that argument 2, 3 and 4 are from correct language codes list 
@@ -116,6 +109,7 @@ translate <- function(input_text,
                         "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", "PT", "RO", 
                         "RU", "SK", "SL", "SV", "TR", "ZH")
   
+  # had to change it to string so that shiny would work properly
   if(source_language == "NULL") {
     source_language <- NULL
   }
@@ -141,12 +135,12 @@ translate <- function(input_text,
          Check help file for more information.") 
   }
   
-  split_arguments <- c(0, 1, "nonewlines")
-  if((split_sentences %in% split_arguments) == FALSE) {
-    stop("Argument 'split_sentences' must be a valid number or string. 
-         Check help file for more information.")
+  # transform formatting argument back to numerical so it can be used by function
+  if(preserve_formatting == "0") {
+    preserve_formatting <- 0
+  } else if(preserve_formatting == "1") {
+    preserve_formatting <- 1
   }
-  
   formatting_arguments <- c(0, 1)
   if((preserve_formatting %in% formatting_arguments) == FALSE) {
     stop("Argument 'preserve_formatting' must be a valid number. 
@@ -161,7 +155,6 @@ translate <- function(input_text,
                                              target_lang = target_language, 
                                              source_lang = source_language, 
                                              formality = formality,
-                                             split_sentences = split_sentences,
                                              preserve_formatting = preserve_formatting))
   
   # Get readable data
