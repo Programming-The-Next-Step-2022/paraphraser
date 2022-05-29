@@ -148,9 +148,10 @@ ui <- fluidPage(
              )
            ),
     
+    
     # Right Section: 
     column(width = 4,
-           wellPanel( 
+           #wellPanel( 
              # Select target language
              selectInput("target",
                          label="", 
@@ -171,11 +172,15 @@ ui <- fluidPage(
                                      "Swedish" = "SV", "Turkish" = "TR",
                                      "Chinese" = "ZH")),
              # Output translated text
-             textOutput("text_output")
-             )
+           # creates beige box for it but is small   
+           wellPanel(textOutput("text_output"))
+             
+             # creates text box but doess not expand with large text
+             # verbatimTextOutput("text_output", placeholder = TRUE)
            )
+        )
     )
-  ) # close ui
+   # close ui
 
 
 # Define server -------------------------------------------------------------
