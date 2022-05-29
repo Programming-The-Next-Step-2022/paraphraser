@@ -1,26 +1,27 @@
 {
-    "id": "2779DC5D",
-    "path": "~/Documents/GitHub/project_margarida/tests/testthat.R",
-    "project_path": "tests/testthat.R",
+    "id": "D05C0618",
+    "path": "~/Documents/GitHub/translate_/R/app.R",
+    "project_path": "R/app.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1653130511103.0,
+    "created": 1653823237810.0,
     "source_on_save": false,
-    "relative_order": 5,
+    "relative_order": 3,
     "properties": {
+        "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "4,0",
-        "scrollLine": "0"
+        "cursorPosition": "184,0",
+        "scrollLine": "162"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653130409,
+    "lastKnownWriteTime": 1653823262,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653130409,
+    "last_content_update": 1653823262460,
     "read_only": false,
     "read_only_alternatives": []
 }

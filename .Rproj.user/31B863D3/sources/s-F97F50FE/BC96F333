@@ -1,0 +1,26 @@
+{
+    "id": "BC96F333",
+    "path": "~/Documents/GitHub/translate_/vignettes/my-vignette.Rmd",
+    "project_path": "vignettes/my-vignette.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1653823536422.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "35,2",
+        "scrollLine": "33"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1653824103,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1653824103318,
+    "read_only": false,
+    "read_only_alternatives": []
+}
