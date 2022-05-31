@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/translate_/vignettes/Translator.Rmd",
     "project_path": "vignettes/Translator.Rmd",
     "type": "r_markdown",
-    "hash": "3292681331",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1653983858808.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "136,79",
-        "scrollLine": "131"
+        "cursorPosition": "24,0",
+        "scrollLine": "13"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653988800,
+    "lastKnownWriteTime": 1653995593,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653988800890,
+    "last_content_update": 1653995593193,
     "read_only": false,
     "read_only_alternatives": []
 }

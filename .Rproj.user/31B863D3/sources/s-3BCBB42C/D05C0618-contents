@@ -1,9 +1,7 @@
-
 library("shiny")
 library("shinythemes")
 
-# would this work if its not loaded in my computer? - maybe needs to be changed
-source("~/Documents/GitHub/translate_/R/main.R")
+source("main.R")
 
 
 ### TO DO ### ---------------------------------------------------------------
@@ -149,7 +147,6 @@ ui <- fluidPage(
              )
            ),
     
-    
     # Right Section: 
     column(width = 4,
            #wellPanel( 
@@ -172,22 +169,20 @@ ui <- fluidPage(
                                      "Slovak" = "SK", "Slovenian" = "SL",
                                      "Swedish" = "SV", "Turkish" = "TR",
                                      "Chinese" = "ZH")),
-             # Output translated text
+           
+           # Output translated text
            # creates beige box for it but is small   
            wellPanel(
              textOutput("text_output")
              )
-             
-             # alternative - creates text box but does not expand with large text
-             # verbatimTextOutput("text_output", placeholder = TRUE)
            )
-        )
     )
-   # close ui
+  ) # close ui
 
 
 # Define server -------------------------------------------------------------
 server <- function(input, output) {
+  
   # Output translated text
   output$text_output <- renderText({
     translation <- translate(input_text = input$input_text, 
@@ -220,7 +215,6 @@ server <- function(input, output) {
     source_lang <- code_to_lang[source_code]
     paste("Detected language is: ", source_lang)
   })
-
 }
 
 # Create shiny app -----------------------------------------------------------

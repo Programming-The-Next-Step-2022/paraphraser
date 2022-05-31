@@ -69,7 +69,7 @@ translate <- function(input_text,
                       target_language, 
                       source_language = "NULL", 
                       formality = "default",  
-                      preserve_formatting = 1) {
+                      preserve_formatting = "1") {
   
   # Check that all arguments are of correct type 
   if(!is.character(input_text)) {
@@ -88,17 +88,14 @@ translate <- function(input_text,
     stop("Argument 'formality' must be a string.")
   }
   
-  # had to change it to string inputs to work in shiny
-  #if(!is.numeric(preserve_formatting) && !is.character(preserve_formatting) ) {
-   # stop("Argument 'preserve_formatting' must be valid number or string.")
-  #}
-  
+  if(!is.numeric(preserve_formatting) && !is.character(preserve_formatting)) {
+    stop("Argument 'preserve_formatting' must be a number or string.")
+  }
   
   # Check that argument 2, 3 and 4 are from correct language codes list 
   lang_codes_output <- c("BG", "CS", "DA", "DE", "EL", "EN-GB", "EN-US", "ES", "ET", 
                          "FI", "FR", "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", 
                          "PT-PT", "PT-BR", "RO", "RU", "SK", "SL", "SV", "TR", "ZH")
-  
   if((target_language %in% lang_codes_output) == FALSE) {
     stop("Argument 'target_language' must be an available language code. 
          Check help file for more information.")
@@ -107,7 +104,6 @@ translate <- function(input_text,
   lang_codes_input <- c("BG", "CS", "DA", "DE", "EL", "EN", "ES", "ET", "FI", "FR", 
                         "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", "PT", "RO", 
                         "RU", "SK", "SL", "SV", "TR", "ZH")
-  
   # had to change it to string so that shiny would work properly
   if(source_language == "NULL") {
     source_language <- NULL
@@ -134,7 +130,8 @@ translate <- function(input_text,
          Check help file for more information.") 
   }
   
-  # transform formatting argument back to numerical so it can be used by function
+  # Change preserve_formatting argument back to numeric if it is not
+  # Had to change it to strings so that shiny would work
   if(preserve_formatting == "0") {
     preserve_formatting <- 0
   } else if(preserve_formatting == "1") {
@@ -142,7 +139,7 @@ translate <- function(input_text,
   }
   formatting_arguments <- c(0, 1)
   if((preserve_formatting %in% formatting_arguments) == FALSE) {
-    stop("Argument 'preserve_formatting' must be a valid number. 
+    stop("Argument 'preserve_formatting' must be a valid option. 
          Check help file for more information.")
   }
   

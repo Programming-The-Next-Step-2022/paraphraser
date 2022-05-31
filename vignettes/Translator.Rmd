@@ -19,8 +19,10 @@ knitr::opts_chunk$set(
 This package was built in the context of research into eHealth interventions but can be used in all sorts of contexts that require nuanced translations. \
 To install this package (...)
 
+
 ```{r setup}
-library(project.margarida)
+#githubinstall::githubinstall("project.margarida")
+library("project.margarida")
 ```
 
 
