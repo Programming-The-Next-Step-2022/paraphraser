@@ -1,22 +1,15 @@
 library("shiny")
-library("shinythemes")
-
-source("main.R")
-
 
 ### TO DO ### ---------------------------------------------------------------
 
-# make output text box always visible and fixed size to match input text box
-# improve general appearance
 # DONE - make formatting button work
 # DONE - make sure formatting button only appears if available target language is selected
 # DONEish (always showing) - show detected source language somewhere - maybe update source button? 
 # DONE - make sure detect language in source language works
 
-
 # Define UI ------------------------------------------------------------------
 ui <- fluidPage(
-  theme= shinytheme("sandstone"),
+  theme = shinythemes::shinytheme("sandstone"),
   
   tags$head(tags$style(HTML('* {font-family: "Beirut"};'))),
   

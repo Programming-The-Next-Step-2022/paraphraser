@@ -32,15 +32,15 @@ Translate function translates text into a target language by using Deepl's API (
 Deepl uses neural networks in their machine translation to capture more nuances in text input than other translators. \
 \
 **Arguments:** \
-* `input_text`: The string you wish to translate \
-* `target_language`: The language code of language you wish to translate your string(s) to. Note that it must be an accepted language code in a string format and in upper case to be accepted. For example, "BG" for Bulgarian. The help file lists all accepted language codes. \
-* `source_language`: Optional argument to set the language of the `input_text`. If this is not chosen, then the translator will attempt to detect the language automatically. Once again, an accepted language code must be used. Note that the language codes accepted for `target_language` are not exactly the same as the ones accepted for `source_language`. There are only minor differences, for example, the `target_language` codes include both Portugal Portuguese ("PT-PT") and Brazilian Portuguese ("PT-BR") while the `source_language` codes do not make this distinction ("PT"). The help file lists all the options. \
-* `formality`: Optional argument in case you want to receive a more formal or informal translation than default. This argument is only accepted in a smaller number of languages (German, French, Italian, Spanish, Dutch, Polish, Portuguese, and Russian). Options are "default", "more", and "less". \
+* `input_text`: The string to be translated. \
+* `target_language`: The language code of the language the user wishes to translate their text to. Note that it must be an accepted language code in a string format and in upper case to be accepted. For example, `"BG"` for Bulgarian. The help file lists all accepted language codes. \
+* `source_language`: Optional argument to set the language of the `input_text`. If this is not chosen, then the translator will attempt to detect the language automatically. Once again, an accepted language code must be used. Note that the language codes accepted for `target_language` are not exactly the same as the ones accepted for `source_language`. There are only minor differences, for example, the `target_language` codes include both Portugal Portuguese (`"PT-PT"`) and Brazilian Portuguese (`"PT-BR"`) while the `source_language` codes do not make this distinction (`"PT"`). The help file lists all the options. \
+* `formality`: Optional argument in case you want to receive a more formal or informal translation than default. This argument is only accepted in a set of languages (German, French, Italian, Spanish, Dutch, Polish, Portuguese, and Russian). Options are "default", "more", and "less". \
 * `preserve_formatting`: Optional argument to determine whether the original format of the `input_text` should be kept, which is the default setting, or whether the translator should format the text. For example, by including punctuation and upper or lower cases when needed. Options are `1` for default and `0` for changing formatting. \
 
 \
 **Output:**\
-Just calling the function will print a list with 4 outputs. These are the main arguments you have defined and the outcome of the translate function: \
+Just calling the function will print a list with 4 outputs: \
 * `input_text` \
 * `source_language` \
 * `output_text`: this is the translated version of the `input_text` \
@@ -50,7 +50,7 @@ Just calling the function will print a list with 4 outputs. These are the main a
 
 **Using only the essential arguments:** \
 
-This example shows how easy it is to use this function especially when you do not need to specify any additional arguments. The translator detects the `source_language` automatically. It also gives you back the input text and source language it detected (or you specified) and the target language you have picked along with the output text (the translation). \
+This example shows how easy it is to use this function especially when you do not need to specify any additional arguments. The translator detects the `source_language` automatically. It gives you back the input text and source language it detected (or you specified) and the target language you have picked along with the output text (the translation). \
 
 ```{r translate}
 translate(input_text = "Hello world!", 
@@ -136,14 +136,9 @@ An example of a translation looks like: \
 
 ## Issues Encountered
 
-* There was an issue with the **default value for the source_language argument** in shiny. The default value in the function was originally set to be NULL unless the participant specified the source_language they wanted. I tried fixing it in different ways within shiny, since it would just give an error if "Detect language" was selected from the start. I ended up just changing the default value within the function to be a string called "NULL" and then, within the function, this is changed to a normal NULL value if nothing else is specified. This fixed the problem within shiny and the function still works so I left it like that. \
+* The **split_sentences** argument didn't seem to be very important. It was hard to tell exactly what that should look like since the online version of the deepl translator doesn't seem to give that option to users anyways. It made me reconsider whether I should keep this argument. It does seem to work with new lines sometimes, but I didn't really see a lot of situations where this would be useful. I ended up removing this argument completely from the `translate()` function.\ 
 \
-* I had a similar problem with the **formatting argument**. When I kept the input options as numeric, rather than strings, I would get errors regarding the input not being numeric, when it definitely was. I tested the strings `"1"` and `"0"` rather than the numbers 1 and 0, while also commenting out the warning messages regarding non-numeric values and changing it within the function itself, and this immediately fixed the problem in the shiny app. \
-\
-* The **split_sentences** argument didn't seem to be very important. It was hard to tell exactly what that should look like since the online version of the deepl translator doesn't seem to give that option to users anyways. It made me reconsider whether I should keep this argument. It does seem to work with new lines sometimes, but I didn't really see a lot of situations where this would be useful. I ended up removing this argument completely from the `translate()` function. \ 
-\
-\
-* I included **conditional panels** in the shiny script to be able to only show the buttons to pick the level of formality for the languages that offer this possibility, as selecting anything other than "default" with another language will lead to an error. However, I could not figure out how to make the condition include the whole set of languages that are possible to use. I ended up using one conditional statement and one button per language which resulted in 9 almost identical pieces of code in a row. This seems very uneffecient but I tried several ways of making some sort of OR statement but the function would give an error with every method. \
+* I included **conditional panels** in the shiny script to be able to only show the buttons to pick the level of formality for the languages that offer this possibility, as selecting anything other than "default" with another language will lead to an error. However, I could not figure out how to make the condition include the whole set of languages that are possible to use. I ended up using one conditional statement and one button per language which resulted in 9 almost identical pieces of code in a row. This seems very uneffecient but I tried several ways of making some sort of OR statement but the function would give an error with every method.\
 \
 
 

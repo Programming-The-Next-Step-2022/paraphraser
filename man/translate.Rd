@@ -9,7 +9,7 @@ translate(
   target_language,
   source_language = "NULL",
   formality = "default",
-  preserve_formatting = 1
+  preserve_formatting = "1"
 )
 }
 \arguments{

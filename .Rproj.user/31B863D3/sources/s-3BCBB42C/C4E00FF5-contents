@@ -61,8 +61,6 @@
 #'            formality = "less", split_sentences = 0, preserve_formatting = 1)
 
 
-
-
 # Translate Function ---------------------------------------------------------
 #' @export
 translate <- function(input_text, 
@@ -104,7 +102,7 @@ translate <- function(input_text,
   lang_codes_input <- c("BG", "CS", "DA", "DE", "EL", "EN", "ES", "ET", "FI", "FR", 
                         "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", "PT", "RO", 
                         "RU", "SK", "SL", "SV", "TR", "ZH")
-  # had to change it to string so that shiny would work properly
+  # change it from string (was needed for shiny to work)
   if(source_language == "NULL") {
     source_language <- NULL
   }
@@ -129,9 +127,7 @@ translate <- function(input_text,
     stop("Argument 'formality' must be a valid string. 
          Check help file for more information.") 
   }
-  
-  # Change preserve_formatting argument back to numeric if it is not
-  # Had to change it to strings so that shiny would work
+  # change it from string (for shiny to work)
   if(preserve_formatting == "0") {
     preserve_formatting <- 0
   } else if(preserve_formatting == "1") {
