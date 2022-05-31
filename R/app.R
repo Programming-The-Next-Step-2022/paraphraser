@@ -10,9 +10,9 @@ source("~/Documents/GitHub/translate_/R/main.R")
 
 # make output text box always visible and fixed size to match input text box
 # improve general appearance
-# DONE? - make split_sentences and formatting buttons work
+# DONE - make formatting button work
 # DONE - make sure formatting button only appears if available target language is selected
-# show detected source language somewhere - maybe update source button? 
+# DONEish (always showing) - show detected source language somewhere - maybe update source button? 
 # DONE - make sure detect language in source language works
 
 
@@ -50,6 +50,7 @@ ui <- fluidPage(
                                      "Slovenian" = "SL", "Swedish" = "SV", 
                                      "Turkish" = "TR", "Chinese" = "ZH"),
                          selected = "NULL"),
+             textOutput("detected_source"),
              textAreaInput("input_text", label="", value ="", height = "500px")
              )
     ),
@@ -173,9 +174,11 @@ ui <- fluidPage(
                                      "Chinese" = "ZH")),
              # Output translated text
            # creates beige box for it but is small   
-           wellPanel(textOutput("text_output"))
+           wellPanel(
+             textOutput("text_output")
+             )
              
-             # creates text box but doess not expand with large text
+             # alternative - creates text box but does not expand with large text
              # verbatimTextOutput("text_output", placeholder = TRUE)
            )
         )
@@ -185,22 +188,39 @@ ui <- fluidPage(
 
 # Define server -------------------------------------------------------------
 server <- function(input, output) {
-  
   # Output translated text
   output$text_output <- renderText({
     translation <- translate(input_text = input$input_text, 
                              target_language = input$target,
                              source_language = input$source,
                              formality = input$formality,
-                             preserve_formatting = input$formatting
-    )
+                             preserve_formatting = input$formatting)
     translation$output_text
   })
   
-  # Get source language to show to user in case they selected "detect language"
-  #if(input$source != "NULL") {
-  #  input$source <- translation$source_language
- # }
+  # Output detected language
+  output$detected_source <- renderText({
+    # create code to language mapping
+    code_to_lang <- c("BG" = "Bulgarian", "CS" = "Czech","DA" = "Danish", 
+                      "DE" = "German","EL" = "Greek", "EN" = "English", 
+                      "ES" = "Spanish", "ET" = "Estonian", "FI" = "Finnish", 
+                      "FR" = "French", "HU" = "Hungarian", "ID" = "Indonesian", 
+                      "IT" = "Italian", "JA" = "Japanese", "LT" = "Lithuanian", 
+                      "LV" = "Latvian", "NL" = "Dutch", "PL" = "Polish", 
+                      "PT" = "Portuguese", "RO" = "Romanian", "RU" = "Russian", 
+                      "SK" = "Slovak", "SL" = "Slovenian", "SV" = "Swedish", 
+                      "TR" = "Turkish", "ZH" = "Chinese")
+    # have to re run translation or else can't access it
+    translation <- translate(input_text = input$input_text, 
+                               target_language = input$target,
+                               source_language = input$source,
+                               formality = input$formality,
+                               preserve_formatting = input$formatting)
+    source_code <- translation$source_language
+    source_lang <- code_to_lang[source_code]
+    paste("Detected language is: ", source_lang)
+  })
+
 }
 
 # Create shiny app -----------------------------------------------------------

@@ -45,8 +45,7 @@
 #' should respect the original formatting of the \code{input_text}. Possible 
 #' aspects affected by this formatting include punctuation and upper or lower 
 #' cases at the start and end of sentences. Possible options are 1 (default) for 
-#' preserving formatting of \code{input_text}, or 0 for changing the formatting.
-#' 
+#' preserving formatting of \code{input_text}, or 0 for possibly changing the formatting.
 #' 
 #' @return \code{'input text'}, \code{'source_language'} (specified by user or 
 #' automatically detected), \code{'output text'} (translated version of input text, 
