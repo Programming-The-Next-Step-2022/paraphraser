@@ -1,26 +1,27 @@
 {
-    "id": "C4E00FF5",
-    "path": "~/Documents/GitHub/translate_/R/main.R",
-    "project_path": "R/main.R",
+    "id": "D05C0618",
+    "path": "~/Documents/GitHub/translate_/R/app.R",
+    "project_path": "R/app.R",
     "type": "r_source",
-    "hash": "3074783632",
+    "hash": "337600891",
     "contents": "",
     "dirty": false,
-    "created": 1653127216500.0,
+    "created": 1653823237810.0,
     "source_on_save": false,
     "relative_order": 3,
     "properties": {
+        "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "129,2",
-        "scrollLine": "118"
+        "cursorPosition": "215,0",
+        "scrollLine": "193"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653997254,
+    "lastKnownWriteTime": 1654013400,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653997254674,
+    "last_content_update": 1654013400644,
     "read_only": false,
     "read_only_alternatives": []
 }

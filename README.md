@@ -9,7 +9,7 @@ This package uses Deepl (https://www.deepl.com/translator) API to translate text
 
 ### User interface ###
 The user interface was created with Shiny from R Studio (<https://shiny.rstudio.com/>).
-![User Interface](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/example2.png){width=80%} 
+![User Interface](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/example2.png) 
 
 ### How it was built ###
 This package was built with RStudio with a R Shinny App user interface.
