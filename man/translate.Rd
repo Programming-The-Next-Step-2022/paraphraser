@@ -2,26 +2,75 @@
 % Please edit documentation in R/main.R
 \name{translate}
 \alias{translate}
-\title{Translate Sentences}
+\title{Translate}
 \usage{
-translate(text, target_lang)
+translate(
+  input_text,
+  target_language,
+  source_language = NULL,
+  formality = "default",
+  split_sentences = 1,
+  preserve_formatting = 1
+)
 }
 \arguments{
-\item{text}{String to be translated.}
+\item{input_text}{String to be translated.}
 
-\item{target_lang}{Language code of language user wishes to translate sentence to.
-Current options are: "BG”  (Bulgarian), "CS" (Czech), "DA" (Danish), "DE" (German),
-"EL" (Greek), "EN-GB" (British English), "EN-US" (American English), "ES" (Spanish),
-"ET" (Estonian), "FI" (Finnish), "FR" (French), "HU" (Hungarian), "ID" (Indonesian),
-"IT" (Italian), "JA" (Japanese), "LT" (Lithuanian), "LV" (Latvian), "NL" (Dutch),
-"PL" (Polish), "PT-PT" (Portuguese), "PT-BR" (Brazilian Portuguese), "RO" (Romanian),
-"RU" (Russian), "SK" (Slovak), "SL" (Slovenian), "SV" (Swedish), "TR" (Turkish), and
-"ZH" (Chinese)}
+\item{target_language}{Language code of language user wishes to translate
+sentence to. Current target language options are: "BG”  (Bulgarian), "CS"
+(Czech), "DA" (Danish), "DE" (German), "EL" (Greek), "EN-GB" (British English),
+"EN-US" (American English), "ES" (Spanish), "ET" (Estonian), "FI" (Finnish),
+"FR" (French), "HU" (Hungarian), "ID" (Indonesian), "IT" (Italian), "JA"
+(Japanese), "LT" (Lithuanian), "LV" (Latvian), "NL" (Dutch), "PL" (Polish),
+"PT-PT" (Portuguese), "PT-BR" (Brazilian Portuguese), "RO" (Romanian), "RU"
+(Russian), "SK" (Slovak), "SL" (Slovenian), "SV" (Swedish), "TR" (Turkish),
+and "ZH" (Chinese).}
+
+\item{source_language}{Optional argument to set the language of the
+\code{input_text}. If not specified, function will attempt to automatically
+recognise language. Current target language options are: "BG”  (Bulgarian),
+"CS" (Czech), "DA" (Danish), "DE" (German), "EL" (Greek), "EN" (all English
+varieties), "ES" (Spanish), "ET" (Estonian), "FI" (Finnish), "FR" (French),
+"HU" (Hungarian), "ID" (Indonesian), "IT" (Italian), "JA" (Japanese), "LT"
+(Lithuanian), "LV" (Latvian), "NL" (Dutch), "PL" (Polish), "PT" (all
+Portuguese varieties), "RO" (Romanian), "RU" (Russian), "SK" (Slovak), "SL"
+(Slovenian), "SV" (Swedish), "TR" (Turkish), and "ZH" (Chinese).}
+
+\item{formality}{Optional argument to determine whether the translation should
+be more formal or informal. The possible options are "default" (default),
+"more" for a more formal language, and "less" for a more informal language.
+This currently only works for the following languages: "DE" (German), "FR"
+(French), "IT" (Italian), "ES" (Spanish), "NL" (Dutch), "PL" (Polish), "PT-PT",
+"PT-BR" (Portuguese), and "RU" (Russian).}
+
+\item{split_sentences}{Optional argument to determine whether the translator
+should first split the \code{input_text} into sentences. This is enabled by
+default. The possible options are: 0 for no splitting at all meaning the whole
+input is treated as a single sentence, 1 (default) for splitting at punctuation
+and new lines, and "nonewlines" for splitting only at punctuation and ignoring
+new lines.}
+
+\item{preserve_formatting}{Optional argument to determine whether the translator
+should respect the original formatting of the \code{input_text}. Possible
+aspects affected by this formatting include punctuation and upper or lower
+cases at the start and end of sentences. Possible options are 1 (default) for
+preserving formatting of \code{input_text}, or 0 for changing the formatting.}
 }
 \value{
-The translated version of \code{text} in target language \code{target_lang}
+\code{'input text'}, \code{'source_language'} (specified by user or
+automatically detected), \code{'output text'} (translated version of input text,
+and \code{'target language'}.
 }
 \description{
-Translates text into a target language. Original language does
-not need to be specified as function automatically recognises it.
+Translates text into a target language. Uses Deepl API
+(https://www.deepl.com/) to provide high quality translations.
+}
+\examples{
+translate("Hello world!", "FR", "EN")
+
+translate("The brown fox jumped over the black cat.", "PT-PT", 
+           formality = "more")
+
+translate("i forgot about it. no i have to go back", "RU", "EN", 
+           formality = "less", split_sentences = 0, preserve_formatting = 1)
 }
