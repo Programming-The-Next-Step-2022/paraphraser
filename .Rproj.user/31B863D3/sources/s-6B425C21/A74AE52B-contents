@@ -13,7 +13,7 @@ translate(
 )
 }
 \arguments{
-\item{input_text}{String(s) to be translated.}
+\item{input_text}{String to be translated.}
 
 \item{target_language}{Language code of language user wishes to translate
 sentence to. Current target language options are: "BG”  (Bulgarian), "CS"
@@ -50,10 +50,10 @@ preserving formatting of \code{input_text}, or 0 for possibly changing the forma
 }
 \value{
 Returns a list of 4 objects and the class attribute of this list:
-\code{input_text} which is the text the user has given as the first arguement;
+\code{input text} which is the text the user has given as the first arguement;
 \code{source_language} which is specified by the user or automatically detected;
-\code{output_text} which is the translated version of input text;
-and \code{target_language} which is the language of the translated text, which the
+\code{output text} which is the translated version of input text;
+and \code{target language} which is the language of the translated text, which the
 user has given as the second argument to the function.
 }
 \description{
