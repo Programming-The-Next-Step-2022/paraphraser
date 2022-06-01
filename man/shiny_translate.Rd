@@ -15,3 +15,6 @@ This function takes no arguments and only launches a shiny app from
 user's R Studio. Check \code{?translate()} to know more about how the main translate
 function works.
 }
+\examples{
+shiny_translate()
+}

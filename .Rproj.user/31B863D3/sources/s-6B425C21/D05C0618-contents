@@ -1,5 +1,3 @@
-library("shiny")
-
 ### TO DO ### ---------------------------------------------------------------
 
 # DONE - make formatting button work
@@ -30,43 +28,47 @@ shiny_translate <- function() {
     
     tags$head(tags$style(HTML('* {font-family: "Beirut"};'))),
     
-    titlePanel("Translator"),
+    titlePanel(h1("Translator", align = "center")),
     
     p("This translator was built with an R package that uses the API from Deepl. 
       (https://www.deepl.com). You can choose from 28 different languages to 
       translate your text to. Input your text in the left box and select which 
-      language you want to translate it to in the drop down button on the right."),
+      language you want to translate it to in the drop down button on the right.",
+      align = "center"),
     
     fluidRow(
       # Left Section: 
       column(4,
-             wellPanel(
-               selectInput("source", 
-                           label="", 
-                           choices = c("Detect Language" = "NULL", 
-                                       "Bulgarian" = "BG", "Czech" = "CS",
-                                       "Danish" = "DA", "German" = "DE",
-                                       "Greek" = "EL", "English" = "EN",
-                                       "Spanish" = "ES", "Estonian" = "ET", 
-                                       "Finnish" = "FI", "French" = "FR", 
-                                       "Hungarian" = "HU", "Indonesian" = "ID",
-                                       "Italian" = "IT", "Japanese" = "JA", 
-                                       "Lithuanian" = "LT", "Latvian" = "LV",
-                                       "Dutch" = "NL", "Polish" = "PL", 
-                                       "Portuguese" = "PT", "Romanian" = "RO", 
-                                       "Russian" = "RU", "Slovak" = "SK", 
-                                       "Slovenian" = "SL", "Swedish" = "SV", 
-                                       "Turkish" = "TR", "Chinese" = "ZH"),
-                           selected = "NULL"),
-               textOutput("detected_source"),
-               textAreaInput("input_text", label="", value ="", height = "500px")
+             align = "center",
+             selectInput("source", 
+                         label="", 
+                         choices = c("Detect Language" = "NULL", 
+                                     "Bulgarian" = "BG", "Czech" = "CS",
+                                     "Danish" = "DA", "German" = "DE",
+                                     "Greek" = "EL", "English" = "EN",
+                                     "Spanish" = "ES", "Estonian" = "ET", 
+                                     "Finnish" = "FI", "French" = "FR", 
+                                     "Hungarian" = "HU", "Indonesian" = "ID",
+                                     "Italian" = "IT", "Japanese" = "JA", 
+                                     "Lithuanian" = "LT", "Latvian" = "LV",
+                                     "Dutch" = "NL", "Polish" = "PL", 
+                                     "Portuguese" = "PT", "Romanian" = "RO", 
+                                     "Russian" = "RU", "Slovak" = "SK", 
+                                     "Slovenian" = "SL", "Swedish" = "SV", 
+                                     "Turkish" = "TR", "Chinese" = "ZH"),
+                         selected = "NULL"),
+             wellPanel(div(style = "height=800px",
+                           textOutput("detected_source"),
+                           textAreaInput("input_text", label="", value ="", height = "450px")
+                           )
+               
                )
       ),
       
       # Middle section:
-      column(width = 3,
+      column(width = 4,
+             align="center",
              wellPanel(
-               # changed to strings and now works but commented out warning messages
                radioButtons("formatting",
                             label= "Choose whether you want to keep original formatting:",
                             choices = c("Yes" = "1", "No" = "0"),
@@ -159,9 +161,9 @@ shiny_translate <- function() {
       
       # Right Section: 
       column(width = 4,
-             #wellPanel( 
-               # Select target language
-               selectInput("target",
+             align = "center",
+             # Select target language
+             selectInput("target",
                            label="", 
                            choices = c("Bulgarian" = "BG", "Czech" = "CS", 
                                        "Danish" = "DA", "German" = "DE",
@@ -180,11 +182,9 @@ shiny_translate <- function() {
                                        "Swedish" = "SV", "Turkish" = "TR",
                                        "Chinese" = "ZH")),
              
-             # Output translated text
-             # creates beige box for it but is small   
-             wellPanel(
-               textOutput("text_output")
-               )
+             # Output translated text 
+             wellPanel(div(style = "height:500px", textOutput("text_output"))
+                       )
              )
       )
     ) # close ui
