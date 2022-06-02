@@ -1,11 +1,11 @@
-### TO DO ### ---------------------------------------------------------------
+### TO DO ### ------------------------------------------------------------------
 
 # DONE - make formatting button work
 # DONE - make sure formatting button only appears if available target language is selected
-# DONEish (always showing) - show detected source language somewhere - maybe update source button? 
+# DONEish (always showing) - show detected source language somewhere 
 # DONE - make sure detect language in source language works
 
-# Creating help file --------------------------------------------------------
+# Creating help file -----------------------------------------------------------
 #' Translator Shiny App
 #' 
 #' @description This function takes no arguments and only launches a shiny app from
@@ -19,17 +19,16 @@
 #' shiny_translate()
 
 
-# Define UI ------------------------------------------------------------------
+# Define UI --------------------------------------------------------------------
 #' @export
 shiny_translate <- function() {
   require("shiny")
+  
   ui <- fluidPage(
     theme = shinythemes::shinytheme("sandstone"),
-    
     tags$head(tags$style(HTML('* {font-family: "Beirut"};'))),
     
     titlePanel(h1("Translator", align = "center")),
-    
     p("This translator was built with an R package that uses the API from Deepl. 
       (https://www.deepl.com). You can choose from 28 different languages to 
       translate your text to. Input your text in the left box and select which 
@@ -40,6 +39,8 @@ shiny_translate <- function() {
       # Left Section: 
       column(4,
              align = "center",
+             
+             # Select source language
              selectInput("source", 
                          label="", 
                          choices = c("Detect Language" = "NULL", 
@@ -57,40 +58,46 @@ shiny_translate <- function() {
                                      "Slovenian" = "SL", "Swedish" = "SV", 
                                      "Turkish" = "TR", "Chinese" = "ZH"),
                          selected = "NULL"),
-             wellPanel(div(style = "height=800px",
+             
+             # Text input
+             wellPanel(
+               div(style = "height=800px",
                            textOutput("detected_source"),
-                           textAreaInput("input_text", label="", value ="", height = "450px")
-                           )
-               
+                           textAreaInput("input_text",
+                                         label="", 
+                                         value ="", 
+                                         height = "450px"))
                )
       ),
       
       # Middle section:
       column(width = 4,
              align="center",
+             
+             # Formatting button
              wellPanel(
                radioButtons("formatting",
                             label= "Choose whether you want to keep original formatting:",
                             choices = c("Yes" = "1", "No" = "0"),
                             selected = "1"),
                
-               # conditions to make formality button appear or not
+               # Conditions to make formality button appear or not
                conditionalPanel(
                  condition = "input.target == 'PT-PT'",
                  radioButtons("formality", 
                               label ="Choose the level of formality:", 
                               choices = c("Default"="default", 
-                                            "Formal"="more", 
-                                            "Informal"="less"),
+                                          "Formal"="more", 
+                                          "Informal"="less"),
                               selected = "default"),
                  ),
                conditionalPanel(
                  condition = "input.target == 'RU'",
                  radioButtons("formality", 
                               label ="Choose the level of formality:", 
-                              choices = c("Default"="default", 
-                                            "Formal"="more", 
-                                            "Informal"="less"),
+                              choices = c("Default"="default",
+                                          "Formal"="more", 
+                                          "Informal"="less"),
                               selected = "default")
                  ),
                conditionalPanel(
@@ -98,8 +105,8 @@ shiny_translate <- function() {
                  radioButtons("formality", 
                               label ="Choose the level of formality:", 
                               choices = c("Default"="default", 
-                                            "Formal"="more", 
-                                            "Informal"="less"),
+                                          "Formal"="more", 
+                                          "Informal"="less"),
                               selected = "default")
                  ),
                conditionalPanel(
@@ -107,8 +114,8 @@ shiny_translate <- function() {
                  radioButtons("formality", 
                               label ="Choose the level of formality:", 
                               choices = c("Default"="default", 
-                                            "Formal"="more", 
-                                            "Informal"="less"),
+                                          "Formal"="more", 
+                                          "Informal"="less"),
                               selected = "default")
                  ),
                conditionalPanel(
@@ -162,6 +169,7 @@ shiny_translate <- function() {
       # Right Section: 
       column(width = 4,
              align = "center",
+             
              # Select target language
              selectInput("target",
                            label="", 
@@ -183,14 +191,15 @@ shiny_translate <- function() {
                                        "Chinese" = "ZH")),
              
              # Output translated text 
-             wellPanel(div(style = "height:500px", textOutput("text_output"))
-                       )
+             wellPanel(
+               div(style = "height:500px", textOutput("text_output"))
+               )
              )
       )
-    ) # close ui
+    ) 
   
   
-  # Define server -------------------------------------------------------------
+  # Define server --------------------------------------------------------------
   server <- function(input, output) {
     
     # Output translated text
@@ -205,7 +214,7 @@ shiny_translate <- function() {
     
     # Output detected language
     output$detected_source <- renderText({
-      # create code to language mapping
+      # Create code to language mapping
       code_to_lang <- c("BG" = "Bulgarian", "CS" = "Czech","DA" = "Danish", 
                         "DE" = "German","EL" = "Greek", "EN" = "English", 
                         "ES" = "Spanish", "ET" = "Estonian", "FI" = "Finnish", 
@@ -215,7 +224,8 @@ shiny_translate <- function() {
                         "PT" = "Portuguese", "RO" = "Romanian", "RU" = "Russian", 
                         "SK" = "Slovak", "SL" = "Slovenian", "SV" = "Swedish", 
                         "TR" = "Turkish", "ZH" = "Chinese")
-      # have to re run translation or else can't access it
+      
+      # Re run translation to be able to access source_language
       translation <- translate(input_text = input$input_text, 
                                  target_language = input$target,
                                  source_language = input$source,

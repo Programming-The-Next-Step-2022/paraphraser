@@ -5,7 +5,7 @@
 #   Test Package:              'Cmd + Shift + T'
 
 
-# Creating help file --------------------------------------------------------
+# Creating help file -----------------------------------------------------------
 #' Translate
 #'
 #' @description Translates text into a target language. Uses Deepl API
@@ -63,7 +63,7 @@
 #'            formality = "less", split_sentences = 0, preserve_formatting = 1)
 
 
-# Translate Function ---------------------------------------------------------
+# Translate Function -----------------------------------------------------------
 #' @export
 translate <- function(input_text, 
                       target_language, 
@@ -72,23 +72,23 @@ translate <- function(input_text,
                       preserve_formatting = "1") {
   
   # Check that all arguments are of correct type 
-  if(!is.character(input_text)) {
+  if (!is.character(input_text)) {
     stop("Argument 'text' must be a string.")
   }
   
-  if(!is.character(target_language)) {
+  if (!is.character(target_language)) {
     stop("Argument 'target_language' must be a string.")
   }
   
-  if(!is.character(source_language)) {
+  if (!is.character(source_language)) {
     stop("Argument 'source_language' must be a string.")
   }
   
-  if(!is.character(formality)) {
+  if (!is.character(formality)) {
     stop("Argument 'formality' must be a string.")
   }
   
-  if(!is.numeric(preserve_formatting) && !is.character(preserve_formatting)) {
+  if (!is.numeric(preserve_formatting) && !is.character(preserve_formatting)) {
     stop("Argument 'preserve_formatting' must be a number or string.")
   }
   
@@ -96,7 +96,7 @@ translate <- function(input_text,
   lang_codes_output <- c("BG", "CS", "DA", "DE", "EL", "EN-GB", "EN-US", "ES", "ET", 
                          "FI", "FR", "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", 
                          "PT-PT", "PT-BR", "RO", "RU", "SK", "SL", "SV", "TR", "ZH")
-  if((target_language %in% lang_codes_output) == FALSE) {
+  if ((target_language %in% lang_codes_output) == FALSE) {
     stop("Argument 'target_language' must be an available language code. 
          Check help file for more information.")
   }
@@ -104,20 +104,20 @@ translate <- function(input_text,
   lang_codes_input <- c("BG", "CS", "DA", "DE", "EL", "EN", "ES", "ET", "FI", "FR", 
                         "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", "PT", "RO", 
                         "RU", "SK", "SL", "SV", "TR", "ZH")
-  # change it from string (was needed for shiny to work)
+  # Change it from string (was needed for shiny to work)
   if(source_language == "NULL") {
     source_language <- NULL
   }
-  if(!is.null(source_language)) {
-    if((source_language %in% lang_codes_input) == FALSE) {
+  if (!is.null(source_language)) {
+    if ((source_language %in% lang_codes_input) == FALSE) {
       stop("Argument 'source_language' must be an available language code. 
            Check help file for more information.")
     }
   }
   
   lang_codes_formal <- c("DE", "FR", "IT", "ES", "NL", "PL", "PT-PT", "PT-BR", "RU")
-  if(!formality == "default") {
-    if((target_language %in% lang_codes_formal) == FALSE) {
+  if (!formality == "default") {
+    if ((target_language %in% lang_codes_formal) == FALSE) {
       stop("Argument 'formality' must be an available language code. 
          Check help file for more information")
     }
@@ -125,18 +125,18 @@ translate <- function(input_text,
   
   # Check that other arguments are valid
   formal_arguments <- c("default", "less", "more")
-  if((formality %in% formal_arguments) == FALSE) {
+  if ((formality %in% formal_arguments) == FALSE) {
     stop("Argument 'formality' must be a valid string. 
          Check help file for more information.") 
   }
   # change it from string (for shiny to work)
-  if(preserve_formatting == "0") {
+  if (preserve_formatting == "0") {
     preserve_formatting <- 0
-  } else if(preserve_formatting == "1") {
+  } else if (preserve_formatting == "1") {
     preserve_formatting <- 1
   }
   formatting_arguments <- c(0, 1)
-  if((preserve_formatting %in% formatting_arguments) == FALSE) {
+  if ((preserve_formatting %in% formatting_arguments) == FALSE) {
     stop("Argument 'preserve_formatting' must be a valid option. 
          Check help file for more information.")
   }
@@ -165,7 +165,7 @@ translate <- function(input_text,
                  'target_language' = target_language)
   class(output) <- "translation"
   
-  # Print output
+  # Return output list
   output
 }
 
