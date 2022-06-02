@@ -20,8 +20,6 @@ This package was built in the context of research into eHealth interventions but
 It consists of two functions:\
 * The main function is the `translate()` function, which translates `input_text` in a `source_language` to `output_text` in a `target_language`, with additional optional arguments to further customise this translation. \
 * The second function is `shiny_translate()` function. This function takes no arguments and simply renders the shiny app that was built to display the `translate()` function in a user friendly way. \
-\
-To install this package (...)
 
 
 ```{r setup}
@@ -45,10 +43,12 @@ Deepl uses neural networks in their machine translation to capture more nuances 
 \
 **Output:**\
 Just calling the function will print a list with 4 main outputs: \
-* `input_text` \
-* `source_language` \
-* `output_text`: this is the translated version of the `input_text` \
-* `target_language` \
+* `input_text`. \ 
+\
+* `source_language`. \
+* `output_text`: this is the translated version of the `input_text`. \ 
+\
+* `target_language`. \
 It will additional return the value of the class attribute for this list object, which is called "translation".
 
 ### Examples
@@ -115,11 +115,30 @@ This function does not take any arguments. \
 \
 **Output:**\
 Calling the function will automatically launch the shiny app from your R Studio. There is no other output. \
+\
+Here you can see the idea behind the user interface and how it takes user's input to display output.
+![User Interface](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/diagram.png){width=80%} \
+\
+Elements:\
 
+* **Input text box:** user can write text which is then taken as the `input_text` argument of the `translate()` function. The result of this function will be outputed on the opposite side text box.\ 
+\
+* **Source language drop down menu:** This takes user input as the user can click on it to see all of the different language options. The default is set to "detect language" meaning the `translate()` function will set the `source_language` argument to NULL, and recognise what language the `input_text` is in. \
+\
+* **Detected language text:** This is reactive text that will output to the user the source language currently at use by the `translate()`function. This can be automatically detected by the function, if "detect language" is selected, or specified by the user by using the drop down menu right above it. \
+\
+* **Target language drop down menu:** This is the same as the source language menu, except that there is no "detect language" option. The default is just the first language of the language list (i.e. Bulgarian), but this can be changed by the user which will immediately change the `output_text`. \
+\
+* **Output text box:** takes no user input but outputs the `output_text` from the `translate()` function that is called by the shiny app when text is given by the user in the input text box. \
+\
+* **Formality button:** this is a radio button where the user can specify whether they want default translation, a more formal translation, or a less formal translation. This input is taken as the `formality` argument of the `translate()` function. This is a reactive button so it will immediately update the output text. This button will only appear if a target language out of a specific set of languages is selected.. \
+\
+* **Formatting button:** this is another radio button where the user can specify whether they want formatting of their input text to be kept in the output text or not. This input is taken as the `preserve_formatting` argument of the `translate()` function.. \
+\
 
 ### Example
 
-```{r, results = "hide"}
+```{r message = FALSE, results= "hide"}
 shiny_translate()
 ```
 
@@ -145,14 +164,14 @@ Below it there is a box where your translated output will appear. \
 \
 An example of a translation looks like: \
 ![Example of Translation](/Users/margaridamoreirasilva/Documents/GitHub/translate_/screenshots/example.png){width=80%} \
-*Since Hungarian was selected as the target language, there is no button to choose the level of formality* \
+*Note: Since Hungarian was selected as the target language, there is no button to choose the level of formality.* \
 
 
 ## Issues Encountered While Building the Package
 
-* The **split_sentences** argument didn't seem to be very important. It was hard to tell exactly what that should look like since the online version of the deepl translator doesn't seem to give that option to users anyways. It made me reconsider whether I should keep this argument. It does seem to work with new lines sometimes, but I didn't really see a lot of situations where this would be useful. I ended up removing this argument completely from the `translate()` function.\ 
+* I originally included a **split_sentences** argument in the translate function. It was supposed to split or not several sentences but it didn't seem to be very important. It was hard to tell exactly what that should look like since the online version of the deepl translator doesn't seem to give that option to users anyways. It made me reconsider whether I should keep this argument. It does seem to work with new lines sometimes, but I didn't really see a lot of situations where this would be useful. I ended up removing this argument completely from the `translate()` function since it did almost nothing.\ 
 \
-* I included **conditional panels** in the shiny script to be able to only show the buttons to pick the level of formality for the languages that offer this possibility, as selecting anything other than "default" with another language will lead to an error. However, I could not figure out how to make the condition include the whole set of languages that are possible to use. I ended up using one conditional statement and one button per language which resulted in 9 almost identical pieces of code in a row. This seems very uneffecient but I tried several ways of making some sort of OR statement but the function would give an error with every method.\
+* I included **conditional panels** in the shiny script to be able to only show the buttons to pick the level of formality for the languages that offer this possibility, as selecting anything other than "default" with another language will lead to an error. However, I could not figure out how to make the condition include the whole set of languages that are possible to use. I ended up using one conditional statement and one button per language which resulted in 9 almost identical pieces of code in a row. This seems very inefficient but I tried several ways of making some sort of OR statement but the function would give an error with every method.\
 \
 
 
