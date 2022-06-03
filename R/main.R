@@ -1,15 +1,10 @@
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Install Package:           'Cmd + Shift + B'
-#   Check Package:             'Cmd + Shift + E'
-#   Test Package:              'Cmd + Shift + T'
-
+# Creating help file -----------------------------------------------------------
 #' Translate
 #'
 #' @description Translates text into a target language. Uses Deepl API
 #' (https://www.deepl.com/) to provide high quality translations.
 #' 
-#' @param input_text String to be translated.
+#' @param input_text String(s) to be translated.
 #'
 #' @param target_language Language code of language user wishes to translate 
 #' sentence to. Current target language options are: "BG”  (Bulgarian), "CS" 
@@ -38,23 +33,18 @@
 #' (French), "IT" (Italian), "ES" (Spanish), "NL" (Dutch), "PL" (Polish), "PT-PT", 
 #' "PT-BR" (Portuguese), and "RU" (Russian). 
 #' 
-#' @param split_sentences Optional argument to determine whether the translator 
-#' should first split the \code{input_text} into sentences. This is enabled by 
-#' default. The possible options are: 0 for no splitting at all meaning the whole 
-#' input is treated as a single sentence, 1 (default) for splitting at punctuation 
-#' and new lines, and "nonewlines" for splitting only at punctuation and ignoring 
-#' new lines.
-#' 
 #' @param preserve_formatting Optional argument to determine whether the translator
 #' should respect the original formatting of the \code{input_text}. Possible 
 #' aspects affected by this formatting include punctuation and upper or lower 
 #' cases at the start and end of sentences. Possible options are 1 (default) for 
-#' preserving formatting of \code{input_text}, or 0 for changing the formatting.
+#' preserving formatting of \code{input_text}, or 0 for possibly changing the formatting.
 #' 
-#' 
-#' @return \code{'input text'}, \code{'source_language'} (specified by user or 
-#' automatically detected), \code{'output text'} (translated version of input text, 
-#' and \code{'target language'}.
+#' @return Returns a list of 4 objects and the class attribute of this list:
+#' \code{input_text} which is the text the user has given as the first arguement;
+#' \code{source_language} which is specified by the user or automatically detected; 
+#' \code{output_text} which is the translated version of input text; 
+#' and \code{target_language} which is the language of the translated text, which the
+#' user has given as the second argument to the function.
 #'
 #' @examples 
 #' translate("Hello world!", "FR", "EN")
@@ -66,48 +56,40 @@
 #'            formality = "less", split_sentences = 0, preserve_formatting = 1)
 
 
-
-# Translate Function ---------------------------------------------------------
+# Translate Function -----------------------------------------------------------
 #' @export
 translate <- function(input_text, 
                       target_language, 
-                      source_language = NULL, 
-                      formality = "default", 
-                      split_sentences = 1, 
-                      preserve_formatting = 1) {
+                      source_language = "NULL", 
+                      formality = "default",  
+                      preserve_formatting = "1") {
   
   # Check that all arguments are of correct type 
-  if(!is.character(input_text)) {
+  if (!is.character(input_text)) {
     stop("Argument 'text' must be a string.")
   }
   
-  if(!is.character(target_language)) {
+  if (!is.character(target_language)) {
     stop("Argument 'target_language' must be a string.")
   }
   
-  if(!is.character(source_language) && !is.null(source_language)) {
+  if (!is.character(source_language)) {
     stop("Argument 'source_language' must be a string.")
   }
   
-  if(!is.character(formality)) {
+  if (!is.character(formality)) {
     stop("Argument 'formality' must be a string.")
   }
   
-  if(!is.numeric(split_sentences) && !is.character(split_sentences)) {
-    stop("Argument 'split_sentences' must be numeric or string.") 
+  if (!is.numeric(preserve_formatting) && !is.character(preserve_formatting)) {
+    stop("Argument 'preserve_formatting' must be a number or string.")
   }
-  
-  if(!is.numeric(preserve_formatting)) {
-    stop("Argument 'preserve_formatting' must be numeric.")
-  }
-  
   
   # Check that argument 2, 3 and 4 are from correct language codes list 
   lang_codes_output <- c("BG", "CS", "DA", "DE", "EL", "EN-GB", "EN-US", "ES", "ET", 
                          "FI", "FR", "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", 
                          "PT-PT", "PT-BR", "RO", "RU", "SK", "SL", "SV", "TR", "ZH")
-  
-  if((target_language %in% lang_codes_output) == FALSE) {
+  if ((target_language %in% lang_codes_output) == FALSE) {
     stop("Argument 'target_language' must be an available language code. 
          Check help file for more information.")
   }
@@ -115,17 +97,20 @@ translate <- function(input_text,
   lang_codes_input <- c("BG", "CS", "DA", "DE", "EL", "EN", "ES", "ET", "FI", "FR", 
                         "HU", "ID", "IT", "JA", "LT", "LV", "NL", "PL", "PT", "RO", 
                         "RU", "SK", "SL", "SV", "TR", "ZH")
-  
-  if(!is.null(source_language)) {
-    if((source_language %in% lang_codes_input) == FALSE) {
+  # Change it from string (was needed for shiny to work)
+  if(source_language == "NULL") {
+    source_language <- NULL
+  }
+  if (!is.null(source_language)) {
+    if ((source_language %in% lang_codes_input) == FALSE) {
       stop("Argument 'source_language' must be an available language code. 
            Check help file for more information.")
     }
   }
   
   lang_codes_formal <- c("DE", "FR", "IT", "ES", "NL", "PL", "PT-PT", "PT-BR", "RU")
-  if(!formality == "default") {
-    if((target_language %in% lang_codes_formal) == FALSE) {
+  if (!formality == "default") {
+    if ((target_language %in% lang_codes_formal) == FALSE) {
       stop("Argument 'formality' must be an available language code. 
          Check help file for more information")
     }
@@ -133,20 +118,19 @@ translate <- function(input_text,
   
   # Check that other arguments are valid
   formal_arguments <- c("default", "less", "more")
-  if((formality %in% formal_arguments) == FALSE) {
+  if ((formality %in% formal_arguments) == FALSE) {
     stop("Argument 'formality' must be a valid string. 
          Check help file for more information.") 
   }
-  
-  split_arguments <- c(0, 1, "nonewlines")
-  if((split_sentences %in% split_arguments) == FALSE) {
-    stop("Argument 'split_sentences' must be a valid number or string. 
-         Check help file for more information.")
+  # change it from string (for shiny to work)
+  if (preserve_formatting == "0") {
+    preserve_formatting <- 0
+  } else if (preserve_formatting == "1") {
+    preserve_formatting <- 1
   }
-  
   formatting_arguments <- c(0, 1)
-  if((preserve_formatting %in% formatting_arguments) == FALSE) {
-    stop("Argument 'preserve_formatting' must be a valid number. 
+  if ((preserve_formatting %in% formatting_arguments) == FALSE) {
+    stop("Argument 'preserve_formatting' must be a valid option. 
          Check help file for more information.")
   }
   
@@ -158,9 +142,8 @@ translate <- function(input_text,
                                              target_lang = target_language, 
                                              source_lang = source_language, 
                                              formality = formality,
-                                             split_sentences = split_sentences,
                                              preserve_formatting = preserve_formatting))
-
+  
   # Get readable data
   data <- jsonlite::fromJSON(rawToChar(raw_result$content))
   
@@ -175,7 +158,6 @@ translate <- function(input_text,
                  'target_language' = target_language)
   class(output) <- "translation"
   
-  # Print output
-  print(output)
+  # Return output list
+  output
 }
-
