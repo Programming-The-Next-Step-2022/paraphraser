@@ -7,14 +7,13 @@
 translate(
   input_text,
   target_language,
-  source_language = NULL,
+  source_language = "NULL",
   formality = "default",
-  split_sentences = 1,
-  preserve_formatting = 1
+  preserve_formatting = "1"
 )
 }
 \arguments{
-\item{input_text}{String to be translated.}
+\item{input_text}{String(s) to be translated.}
 
 \item{target_language}{Language code of language user wishes to translate
 sentence to. Current target language options are: "BG”  (Bulgarian), "CS"
@@ -43,23 +42,19 @@ This currently only works for the following languages: "DE" (German), "FR"
 (French), "IT" (Italian), "ES" (Spanish), "NL" (Dutch), "PL" (Polish), "PT-PT",
 "PT-BR" (Portuguese), and "RU" (Russian).}
 
-\item{split_sentences}{Optional argument to determine whether the translator
-should first split the \code{input_text} into sentences. This is enabled by
-default. The possible options are: 0 for no splitting at all meaning the whole
-input is treated as a single sentence, 1 (default) for splitting at punctuation
-and new lines, and "nonewlines" for splitting only at punctuation and ignoring
-new lines.}
-
 \item{preserve_formatting}{Optional argument to determine whether the translator
 should respect the original formatting of the \code{input_text}. Possible
 aspects affected by this formatting include punctuation and upper or lower
 cases at the start and end of sentences. Possible options are 1 (default) for
-preserving formatting of \code{input_text}, or 0 for changing the formatting.}
+preserving formatting of \code{input_text}, or 0 for possibly changing the formatting.}
 }
 \value{
-\code{'input text'}, \code{'source_language'} (specified by user or
-automatically detected), \code{'output text'} (translated version of input text,
-and \code{'target language'}.
+Returns a list of 4 objects and the class attribute of this list:
+\code{input_text} which is the text the user has given as the first arguement;
+\code{source_language} which is specified by the user or automatically detected;
+\code{output_text} which is the translated version of input text;
+and \code{target_language} which is the language of the translated text, which the
+user has given as the second argument to the function.
 }
 \description{
 Translates text into a target language. Uses Deepl API
