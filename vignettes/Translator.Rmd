@@ -23,7 +23,6 @@ It consists of two functions:\
 
 
 ```{r setup}
-#githubinstall::githubinstall("project.margarida")
 library("project.margarida")
 ```
 
@@ -121,7 +120,7 @@ Here you can see the idea behind the user interface and how it takes user's inpu
 \
 Elements:\
 
-* **Input text box:** user can write text which is then taken as the `input_text` argument of the `translate()` function. The result of this function will be outputed on the opposite side text box.\ 
+* **Input text box:** user can write text which is then taken as the `input_text` argument of the `translate()` function. The result of this function will be outputed on the opposite side text box. \ 
 \
 * **Source language drop down menu:** This takes user input as the user can click on it to see all of the different language options. The default is set to "detect language" meaning the `translate()` function will set the `source_language` argument to NULL, and recognise what language the `input_text` is in. \
 \
@@ -170,8 +169,7 @@ An example of a translation looks like: \
 ## Issues Encountered While Building the Package
 
 * I originally included a **split_sentences** argument in the translate function. It was supposed to split or not several sentences but it didn't seem to be very important. It was hard to tell exactly what that should look like since the online version of the deepl translator doesn't seem to give that option to users anyways. It made me reconsider whether I should keep this argument. It does seem to work with new lines sometimes, but I didn't really see a lot of situations where this would be useful. I ended up removing this argument completely from the `translate()` function since it did almost nothing.\ 
-\
 * I included **conditional panels** in the shiny script to be able to only show the buttons to pick the level of formality for the languages that offer this possibility, as selecting anything other than "default" with another language will lead to an error. However, I could not figure out how to make the condition include the whole set of languages that are possible to use. I ended up using one conditional statement and one button per language which resulted in 9 almost identical pieces of code in a row. This seems very inefficient but I tried several ways of making some sort of OR statement but the function would give an error with every method.\
-\
+* In terms of testing the `shiny_translate()` function, I struggled to come up with tests that would make sense and not just be re-testing the translate function. I ended up not including any for this function in specific since it takes no inputs and only launches the shinny app whose functioning is entirely dependent on the `translate()` function working properly. \
 
 
